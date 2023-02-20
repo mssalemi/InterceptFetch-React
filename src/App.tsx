@@ -1,8 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useMemo } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import { useFetch } from "./hooks/useFetch/useFetch";
+import { useInterceptor } from "./hooks/useInterceptor/useInterceptor";
 
 function App() {
+  const { intercepted, useInterceptedFetch, useDefaultFetch } =
+    useInterceptor();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -10,14 +16,14 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Learn React - Fetch = {intercepted ? "Intercepted" : "Default"}
+        <button onClick={useInterceptedFetch}>
+          Update to Intcerpted Fetch Fetch Method
+        </button>
+        <button onClick={useDefaultFetch}>
+          Update to Default Fetch Fetch Method
+        </button>
+        <button onClick={useFetch}>Fetch Data</button>
       </header>
     </div>
   );
